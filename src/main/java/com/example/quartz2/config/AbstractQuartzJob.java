@@ -3,6 +3,7 @@ package com.example.quartz2.config;
 import com.example.quartz2.model.JobEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
+import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +22,8 @@ public abstract class AbstractQuartzJob implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException
     {
         JobEntity jobEntity=new JobEntity();
-        BeanUtils.copyProperties(context.getMergedJobDataMap().get("prop"),jobEntity);
+//        JobDataMap mergedJobDataMap = context.getMergedJobDataMap();
+        BeanUtils.copyProperties(context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES),jobEntity);
         try
         {
             before(context, jobEntity);
