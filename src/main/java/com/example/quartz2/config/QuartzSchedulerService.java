@@ -201,8 +201,8 @@ public class QuartzSchedulerService {
      */
     public void createSchedule(JobEntity jobEntity) throws SchedulerException{
         if(!checkJobExists(jobEntity)){
-            //new job 传入定义的job执行者
-            JobDetail jobDetail = JobBuilder.newJob(QuartzDisallowConcurrentExecution.class).withIdentity(getJobKey(jobEntity)).build();
+            //new job 传入定义的job执行者 是否允许并发
+            JobDetail jobDetail = JobBuilder.newJob("0".equals(jobEntity.getConcurrent())?QuartzJobExecution.class:QuartzDisallowConcurrentExecution.class).withIdentity(getJobKey(jobEntity)).build();
             //cron
             String cron = jobEntity.getCronExpression();
             CronScheduleBuilder cronScheduleBuilder =StringUtils.isNotBlank(cron)?CronScheduleBuilder.cronSchedule(cron):CronScheduleBuilder.cronSchedule(TEST_CRON);
@@ -212,6 +212,12 @@ public class QuartzSchedulerService {
             //放入参数，运行时的方法可以获取
             jobDetail.getJobDataMap().put(ScheduleConstants.TASK_PROPERTIES, jobEntity);
             scheduler.scheduleJob(jobDetail, cronTrigger);
+
+            //如果这个工作的状态为1
+            if (null!=jobEntity.getStatus()&&jobEntity.getStatus().equals(1))
+            {
+                pauseJob(jobEntity);
+            }
         }
     }
 }

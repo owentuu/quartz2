@@ -39,7 +39,7 @@ public class JobEntity implements Serializable {
     private String misfirePolicy;
 
     /** 是否并发执行（0允许 1禁止） **/
-    @TableField(exist = false)
+//    @TableField(exist = false)
     private String concurrent;
 
     /** 任务状态（0正常 1暂停） **/

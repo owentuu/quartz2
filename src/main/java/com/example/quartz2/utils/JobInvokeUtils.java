@@ -4,6 +4,7 @@ import com.example.quartz2.model.JobEntity;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 
 @Slf4j
 public class JobInvokeUtils {
@@ -37,6 +38,6 @@ public class JobInvokeUtils {
                 e.printStackTrace();
             }
         }
-        System.out.println("任务名称 = [" + beanName + "]----------启动成功");
+        log.info(LocalDateTime.now()+"----任务名称 = [" + beanName + "]----------启动成功");
     }
 }

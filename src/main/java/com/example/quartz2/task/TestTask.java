@@ -1,7 +1,9 @@
 package com.example.quartz2.task;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class TestTask {
 
@@ -9,6 +11,6 @@ public class TestTask {
     private String methodParam;
 
     public void run(){
-        System.out.println("test");
+        log.info("This is a TestTask");
     }
 }

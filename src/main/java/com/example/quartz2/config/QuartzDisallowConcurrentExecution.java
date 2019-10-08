@@ -10,6 +10,7 @@ import org.quartz.JobExecutionContext;
  */
 @DisallowConcurrentExecution
 public class QuartzDisallowConcurrentExecution extends AbstractQuartzJob {
+
     /**
      * 子类去实现
      *

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
@@ -18,11 +17,12 @@ public abstract class AbstractQuartzJob implements Job {
      */
     private static ThreadLocal<Date> threadLocal = new ThreadLocal<>();
 
+
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException
+    public void execute(JobExecutionContext context)
     {
         JobEntity jobEntity=new JobEntity();
-//        JobDataMap mergedJobDataMap = context.getMergedJobDataMap();
+        JobDataMap mergedJobDataMap = context.getMergedJobDataMap();
         BeanUtils.copyProperties(context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES),jobEntity);
         try
         {
