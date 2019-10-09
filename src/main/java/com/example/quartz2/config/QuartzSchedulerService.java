@@ -134,7 +134,8 @@ public class QuartzSchedulerService {
         boolean flag = false;
         try {
             //JobKey定义了job的名称和组别
-            JobKey jobKey = JobKey.jobKey(ScheduleConstants.TASK_CLASS_NAME+job.getId(), job.getJobGroup());
+//            JobKey jobKey = JobKey.jobKey(ScheduleConstants.TASK_CLASS_NAME+job.getId(), job.getJobGroup());
+            JobKey jobKey = getJobKey(job);
             if (jobKey != null) {
                 //继续任务
                 scheduler.resumeJob(jobKey);
