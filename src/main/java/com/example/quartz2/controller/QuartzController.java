@@ -57,4 +57,15 @@ public class QuartzController {
         return "重启失败"+id;
     }
 
+    @PostMapping("/modify")
+    public Object resumeJob(@RequestBody JobEntity jobEntity){
+        if(jobEntity!=null){
+            quartzSchedulerService.modifyJob(jobEntity);
+            jobEntity.setStatus(0);
+            jobEntityMapper.updateById(jobEntity);
+            return "修改任务"+jobEntity;
+        }
+        return "修改失败";
+    }
+
 }

@@ -28,6 +28,7 @@ public class JobInvokeUtils {
             method=clazz.getDeclaredMethod(methodName);
         }catch (NoSuchMethodException e){
             log.error("任务名称 = [" + beanName + "]---------------未启动成功，方法名["+methodName+"]设置错误！！！");
+            return;
         }catch (Exception e){
             e.printStackTrace();
         }
